@@ -4,12 +4,15 @@
       <TargetFramework>net10.0</TargetFramework>
       <ImplicitUsings>enable</ImplicitUsings>
       <OutputPath>..\..\..\bin\Content.Shared\</OutputPath>
-    <Nullable>enable</Nullable>
+      <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <Import Project="..\..\..\RobustToolbox\Imports\Shared.props" />
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Content.Shared\Content.Shared.csproj" />
-    <ProjectReference Include="..\..\..\RobustToolbox\Robust.Shared\Robust.Shared.csproj" />
   </ItemGroup>
 
+  <Import Project="..\..\..\RobustToolbox\MSBuild\Robust.Properties.targets" />
+  <Import Project="..\..\..\RobustToolbox\MSBuild\Robust.CompNetworkGenerator.targets" />
 </Project>

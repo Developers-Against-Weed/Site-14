@@ -12,6 +12,4 @@ namespace Content.Site14.Shared.Interaction.HoldToFace;
 ///     Just adds <see cref="MouseRotatorComponent"/> for the duration of the key being held.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class HoldToFaceComponent : Component
-{
-}
+public sealed partial class HoldToFaceComponent : Component;

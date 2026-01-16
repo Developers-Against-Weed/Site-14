@@ -34,13 +34,7 @@ public sealed class ViewconeEffectSystem : EntitySystem
     /// <param name="angleOverride">The local rotation to set the effect to, instead of the parent rotation.</param>
     public void SpawnEffect(EntityUid source, EntProtoId effect, Angle? angleOverride = null)
     {
-        // Do not spawn these clientside at all
-        // Server should always handle these, since they shouldn't really be originating from entities that
-        // you interact with anyway
-        if (_net.IsClient)
-            return;
-
-        var ent = SpawnNextToOrDrop(effect, source);
+        var ent = PredictedSpawnNextToOrDrop(effect, source);
         var viewconeEffect = EnsureComp<ViewconeOccludableComponent>(ent);
         viewconeEffect.Inverted = true;
         viewconeEffect.Source = source;
