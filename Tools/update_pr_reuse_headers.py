@@ -35,6 +35,12 @@ DIRECTORY_RULES = [
         "author": "Goob Station Contributors",
         "license": "mpl"
     },
+    {
+        "pattern": "Content.Site14.*/",
+        "author": "Site-14 Contributors",
+        "license": "mpl",
+        "additional_text": "Additional Use Restrictions apply:\nSee /LICENSES/SITE14-ADDENDUM.md"
+    },
 ]
 
 COMMENT_STYLES = {
@@ -141,11 +147,12 @@ def get_author_and_license_for_file(file_path):
         if matches_pattern(normalized_path, pattern):
             author = rule["author"]
             license_label = rule.get("license", DEFAULT_LICENSE_LABEL)
+            additional_text = rule.get("additional_text")
             print(f"  Matched pattern '{pattern}' -> Author: {author}, License: {license_label}")
-            return author, license_label
+            return author, license_label, additional_text
 
     print(f"  No pattern match, using defaults -> Author: {DEFAULT_AUTHOR}, License: {DEFAULT_LICENSE_LABEL}")
-    return DEFAULT_AUTHOR, DEFAULT_LICENSE_LABEL
+    return DEFAULT_AUTHOR, DEFAULT_LICENSE_LABEL, None
 
 def get_current_year():
     """Returns the current year."""
@@ -221,7 +228,7 @@ def parse_existing_header(content, comment_style):
 
     return authors, license_id, header_lines
 
-def create_header(authors, license_id, comment_style):
+def create_header(authors, license_id, comment_style, additional_text=None):
     prefix, suffix = comment_style
     lines = []
 
@@ -235,6 +242,11 @@ def create_header(authors, license_id, comment_style):
         lines.append(f"{prefix}")
 
         lines.append(f"{prefix} SPDX-License-Identifier: {license_id}")
+
+        if additional_text:
+            lines.append(f"{prefix}")
+            for text_line in additional_text.splitlines():
+                lines.append(f"{prefix} {text_line}" if text_line else f"{prefix}")
     else:
         lines.append(f"{prefix}")
 
@@ -247,6 +259,11 @@ def create_header(authors, license_id, comment_style):
         lines.append("")
 
         lines.append(f"SPDX-License-Identifier: {license_id}")
+
+        if additional_text:
+            lines.append("")
+            for text_line in additional_text.splitlines():
+                lines.append(text_line)
 
         lines.append(f"{suffix}")
 
@@ -274,7 +291,7 @@ def process_file(file_path, pr_license_override=None, pr_base_sha=None, pr_head_
         print(f"Skipping {file_path} - already has REUSE header (License: {existing_license})")
         return False
 
-    file_author, file_license_label = get_author_and_license_for_file(file_path)
+    file_author, file_license_label, additional_text = get_author_and_license_for_file(file_path)
     current_year = get_current_year()
 
     if pr_license_override:
@@ -292,7 +309,7 @@ def process_file(file_path, pr_license_override=None, pr_base_sha=None, pr_head_
     print(f"Adding new header to {file_path} (Author: {file_author}, License: {license_id})")
 
     authors = {file_author: (current_year, current_year)}
-    new_header = create_header(authors, license_id, comment_style)
+    new_header = create_header(authors, license_id, comment_style, additional_text)
 
     if content.strip():
         prefix, suffix = comment_style

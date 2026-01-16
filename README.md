@@ -35,6 +35,17 @@ We are not currently accepting translations of the game on our main repository. 
 
 ## License
 
+### SITE-14 SPECIFIC
+
+This repository is distributed under a **dual-license model**:
+
+1. **Primary Open-Source License**: MIT License *or* Mozilla Public License 2.0 (MPL-2.0), as indicated by per-file license headers; **and**
+2. **Supplemental/Addendum License**: Site-14 Addendum, which imposes additional use restrictions specifically related to hosting and operation of servers.
+
+Use of this repository constitutes acceptance of **both** the applicable open-source license **and** the Supplemental License below.
+
+---
+
 Each file in this codebase includes a license header that clearly defines its terms. Most unique files in this repository are licensed under the Mozilla Public License (MPL). Files originating from upstream (the Space Station 14 codebase) are licensed under MIT. Any dual or multiple licenses are explicitly indicated with two or more license lines in the file header. Please refer to the headers for the exact licensing terms.
 
 Most media assets are licensed under [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) unless stated otherwise. Assets have their license and the copyright in the metadata file. [Example](https://github.com/space-wizards/space-station-14/blob/master/Resources/Textures/Objects/Tools/crowbar.rsi/meta.json).
