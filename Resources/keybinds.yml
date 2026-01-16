@@ -4,6 +4,9 @@
 
 version: 1 # Not used right now, whatever.
 binds:
+- function: HoldToFace # Site-14
+  type: State
+  key: Shift
 - function: UIClick
   type: State
   key: MouseLeft
