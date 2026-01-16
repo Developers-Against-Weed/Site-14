@@ -8,6 +8,7 @@
   - BaseMob
   - MobDamageable
   - MobPolymorphable
+  - Site14BaseMob # Site-14
   id: BaseSimpleMob
   suffix: AI
   abstract: true

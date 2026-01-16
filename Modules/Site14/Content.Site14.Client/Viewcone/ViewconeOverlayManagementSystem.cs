@@ -1,0 +1,189 @@
+// Originally ported from Ephemeral Space: https://github.com/EphemeralSpace/ephemeral-space
+//
+// SPDX-License-Identifier: MIT-WIZARDS
+
+using Content.Site14.Client.Viewcone.Overlays;
+using Content.Client.Eye;
+using Content.Site14.Shared.Viewcone;
+using Content.Shared.MouseRotator;
+using Content.Shared.Movement.Pulling.Events;
+using Robust.Client.GameObjects;
+using Robust.Client.Graphics;
+using Robust.Client.Input;
+using Robust.Client.Player;
+using Robust.Shared.Map;
+using Robust.Shared.Physics;
+using Robust.Shared.Player;
+using Robust.Shared.Timing;
+using System.Collections.Generic;
+using Robust.Shared.Maths;
+
+namespace Content.Site14.Client.Viewcone;
+
+/// <summary>
+///     Handles adding and removing the viewcone overlays, as well as ferrying data between them
+///     Also handles calculating desired view angle for active viewcones so overlays can use it
+/// </summary>
+public sealed class ViewconeOverlayManagementSystem : EntitySystem
+{
+    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency] private readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IOverlayManager _overlayMan = default!;
+    [Dependency] private readonly IInputManager _input = default!;
+    [Dependency] private readonly IEyeManager _eye = default!;
+    [Dependency] private readonly SharedTransformSystem _xform = default!;
+    private ViewconeConeOverlay _coneOverlay = default!;
+    private ViewconeSetAlphaOverlay _setAlphaOverlay = default!;
+    private ViewconeResetAlphaOverlay _resetAlphaOverlay = default!;
+
+    private const float LerpHalfLife = 0.065f;
+
+    // slightly balls state management, but
+    // done so we don't have to requery within the same frame
+    // this is always cleared at the end of resetting alpha
+    // it is the least thread safe code of all time obviously. but rendering not threaded. so
+    // we can abuse the fact that the overlays will always draw sequentially in the order we expect, and
+    // one wont start rendering in the middle of rendering another
+    [Access(typeof(ViewconeSetAlphaOverlay), typeof(ViewconeResetAlphaOverlay))]
+    public List<(Entity<SpriteComponent> ent, float baseAlpha)> CachedBaseAlphas = new(128);
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        SubscribeLocalEvent<ViewconeComponent, ComponentInit>(OnConeManInit);
+        SubscribeLocalEvent<ViewconeComponent, ComponentShutdown>(OnConeManShutdown);
+
+        SubscribeLocalEvent<ViewconeComponent, LocalPlayerAttachedEvent>(OnPlayerAttached);
+        SubscribeLocalEvent<ViewconeComponent, LocalPlayerDetachedEvent>(OnPlayerDetached);
+
+        SubscribeLocalEvent<ViewconeOccludableComponent, PullStartedMessage>(OnPullStarted);
+        SubscribeLocalEvent<ViewconeOccludableComponent, PullStoppedMessage>(OnPullStopped);
+
+        _coneOverlay = new();
+        _setAlphaOverlay = new();
+        _resetAlphaOverlay = new();
+    }
+
+    public override void FrameUpdate(float frameTime)
+    {
+        base.FrameUpdate(frameTime);
+
+        // the reason we use lerpingeye here in the query first is to
+        // specifically check for eyes that we are actually rendering (lerpingeye already handles this sort of
+        // its like jank as fuck in that system but whatever thats like not my problem )
+        var enumerator = AllEntityQuery<LerpingEyeComponent, EyeComponent, ViewconeComponent, TransformComponent>();
+        while (enumerator.MoveNext(out var uid, out _, out var eye, out var viewcone, out var xform))
+        {
+            var eyeAngle = eye.Rotation;
+            var (position, rotation) = _xform.GetWorldPositionRotation(xform);
+            var playerAngle = rotation;
+            var desiredWasNull = viewcone.DesiredViewAngle == null;
+
+            if (HasComp<MouseRotatorComponent>(uid))
+            {
+                var mousePos = _eye.PixelToMap(_input.MouseScreenPosition);
+                if (mousePos.MapId != MapId.Nullspace)
+                    playerAngle = (mousePos.Position - _xform.GetMapCoordinates(xform).Position).ToAngle() + Angle.FromDegrees(90);
+
+                viewcone.LastMouseRotationAngle = playerAngle;
+            }
+            else if (viewcone.LastMouseRotationAngle != 0f)
+            {
+                // if last frame we had a mouse rotation angle, but now we dont,
+                // that means it was disabled
+                // but, we should keep the old mouse angle for viewcone, at least until the real angle actually changes
+                // or they move
+                if (MathHelper.CloseToPercent(viewcone.LastWorldRotationAngle, playerAngle, .001d)
+                    && viewcone.LastWorldPos == position)
+                {
+                    playerAngle = viewcone.LastMouseRotationAngle;
+                }
+                else
+                {
+                    viewcone.LastMouseRotationAngle = 0f;
+                }
+            }
+
+            viewcone.LastWorldPos = position;
+            viewcone.LastWorldRotationAngle = rotation;
+            viewcone.DesiredViewAngle = playerAngle + eyeAngle;
+
+            // if desired angle was null before we set it
+            // then just set viewangle to it immediately
+            // (assume it was first frame)
+            if (desiredWasNull)
+            {
+                viewcone.ViewAngle = viewcone.DesiredViewAngle.Value;
+                continue;
+            }
+
+            // framerate-independent lerp
+            // https://twitter.com/FreyaHolmer/status/1757836988495847568
+            // convert to angle first so we lerp thru shortestdistance
+            viewcone.ViewAngle = Angle.Lerp(viewcone.ViewAngle, viewcone.DesiredViewAngle.Value, 1f - MathF.Pow(2f, -(frameTime / LerpHalfLife)));
+        }
+    }
+
+    private void OnPlayerAttached(Entity<ViewconeComponent> entity, ref LocalPlayerAttachedEvent args)
+    {
+        AddOverlays();
+    }
+
+    private void OnPlayerDetached(Entity<ViewconeComponent> entity, ref LocalPlayerDetachedEvent args)
+    {
+        RemoveOverlays();
+    }
+
+    private void OnConeManInit(Entity<ViewconeComponent> entity, ref ComponentInit args)
+    {
+        if (_playerManager.LocalSession?.AttachedEntity == entity.Owner)
+            AddOverlays();
+    }
+
+    private void OnConeManShutdown(Entity<ViewconeComponent> entity, ref ComponentShutdown args)
+    {
+        if (_playerManager.LocalSession?.AttachedEntity == entity.Owner)
+        {
+            RemoveOverlays();
+        }
+    }
+
+    private void AddOverlays()
+    {
+        _overlayMan.AddOverlay(_coneOverlay);
+        _overlayMan.AddOverlay(_setAlphaOverlay);
+        _overlayMan.AddOverlay(_resetAlphaOverlay);
+    }
+
+    private void RemoveOverlays()
+    {
+        _overlayMan.RemoveOverlay(_coneOverlay);
+        _overlayMan.RemoveOverlay(_setAlphaOverlay);
+        _overlayMan.RemoveOverlay(_resetAlphaOverlay);
+    }
+
+    // Logic for disabling occluding of entities that you're currently pulling.
+    private void OnPullStarted(Entity<ViewconeOccludableComponent> ent, ref PullStartedMessage args)
+    {
+        // can this even happen? idk
+        if (args.PullerUid != _playerManager.LocalEntity || !_gameTiming.IsFirstTimePredicted)
+            return;
+
+        EnsureComp<ViewconeClientNoOccludeComponent>(ent);
+    }
+
+    private void OnPullStopped(Entity<ViewconeOccludableComponent> ent, ref PullStoppedMessage args)
+    {
+        if (args.PullerUid != _playerManager.LocalEntity)
+            return;
+
+        // why the fuck can this even happen? it stops the pull clientside and never restarts it?
+        // is clientside pulling just bugged upstream?
+        // the flow is "applying state -> reset virtual hand ent -> delete it (??) -> AUGHHHH THAT MEANS STOP PULLING I GUESS
+        if (_gameTiming.ApplyingState)
+            return;
+
+        RemComp<ViewconeClientNoOccludeComponent>(ent);
+    }
+}

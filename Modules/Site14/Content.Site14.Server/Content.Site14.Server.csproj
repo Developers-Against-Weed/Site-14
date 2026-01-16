@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Content.Server\Content.Server.csproj" />
-    <ProjectReference Include="..\Content.Site14.Common\Content.Site14.Common.csproj" />
     <ProjectReference Include="..\Content.Site14.Shared\Content.Site14.Shared.csproj" />
   </ItemGroup>
 

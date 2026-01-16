@@ -9,6 +9,7 @@
   - MobDamageable
   - MobAtmosExposed
   - MobCombat
+  - Site14BaseMob # Site-14
   abstract: true
   components:
   - type: Reactive

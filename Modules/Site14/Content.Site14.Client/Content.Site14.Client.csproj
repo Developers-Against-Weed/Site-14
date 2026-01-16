@@ -18,7 +18,6 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Content.Client\Content.Client.csproj" />
       <ProjectReference Include="..\Content.Site14.Shared\Content.Site14.Shared.csproj" />
-      <ProjectReference Include="..\Content.Site14.Common\Content.Site14.Common.csproj" />
     </ItemGroup>
 
     <Import Project="..\..\..\RobustToolbox\MSBuild\Robust.Properties.targets" />

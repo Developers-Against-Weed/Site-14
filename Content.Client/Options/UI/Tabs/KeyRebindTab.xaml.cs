@@ -17,6 +17,7 @@ using Robust.Shared.Input;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.BoxContainer;
+using Content.Site14.Common.Input; // Site-14
 
 namespace Content.Client.Options.UI.Tabs
 {
@@ -156,6 +157,12 @@ namespace Content.Client.Options.UI.Tabs
 
             AddHeader("ui-options-header-general");
             AddCheckBox("ui-options-hotkey-keymap", _cfg.GetCVar(CVars.DisplayUSQWERTYHotkeys), HandleToggleUSQWERTYCheckbox);
+
+
+            // Site-14 - START
+            AddHeader("ui-options-header-site14");
+            AddButton(Site14KeyFunctions.HoldToFace);
+            // Site-14 - END
 
             AddHeader("ui-options-header-movement");
             AddButton(EngineKeyFunctions.MoveUp);

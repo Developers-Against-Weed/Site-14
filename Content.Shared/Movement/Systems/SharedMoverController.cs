@@ -29,6 +29,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using PullableComponent = Content.Shared.Movement.Pulling.Components.PullableComponent;
+using Content.Site14.Common.Viewcone.Events; // Site-14 - Viewcone
 
 namespace Content.Shared.Movement.Systems;
 
@@ -247,10 +248,12 @@ public abstract partial class SharedMoverController : VirtualController
 
         var moveSpeedComponent = ModifierQuery.CompOrNull(uid);
 
+        bool forceWalk = false; // Site-14 - Forcewalk
         float friction;
         float accel;
         Vector2 wishDir;
         var velocity = physicsComponent.LinearVelocity;
+        var worldRot = _transform.GetWorldRotation(xform); // Site-14 - Forcewalk
 
         // Get current tile def for things like speed/friction mods
         ContentTileDefinition? tileDef = null;
@@ -301,7 +304,16 @@ public abstract partial class SharedMoverController : VirtualController
             var walkSpeed = moveSpeedComponent?.CurrentWalkSpeed ?? MovementSpeedModifierComponent.DefaultBaseWalkSpeed;
             var sprintSpeed = moveSpeedComponent?.CurrentSprintSpeed ?? MovementSpeedModifierComponent.DefaultBaseSprintSpeed;
 
-            wishDir = AssertValidWish(mover, walkSpeed, sprintSpeed);
+            var backwardsAngle = moveSpeedComponent?.BackwardsAngle ?? MovementSpeedModifierComponent.DefaultBackwardsAngle;
+
+            // Site-14 - Forcewalk START
+            var rotNorm = worldRot.ToWorldVec().Normalized();
+            var velNorm = velocity.Normalized();
+            var cosAngle = Vector2.Dot(velNorm, rotNorm);
+            var threshold = new Angle(MathF.PI) - (backwardsAngle / 2);
+            forceWalk = cosAngle < Math.Cos(threshold.Theta);
+            wishDir = AssertValidWish(mover, walkSpeed, sprintSpeed, forceWalk);
+            // Site-14 - Forcewalk END
 
             if (wishDir != Vector2.Zero)
             {
@@ -358,12 +370,13 @@ public abstract partial class SharedMoverController : VirtualController
             {
                 // TODO apparently this results in a duplicate move event because "This should have its event run during
                 // island solver"??. So maybe SetRotation needs an argument to avoid raising an event?
-                var worldRot = _transform.GetWorldRotation(xform);
+                // var worldRot = _transform.GetWorldRotation(xform); Site-14 - Moved further up in scope
 
                 _transform.SetLocalRotation(uid, xform.LocalRotation + wishDir.ToWorldAngle() - worldRot, xform);
             }
 
             if (!weightless && MobMoverQuery.TryGetComponent(uid, out var mobMover) &&
+                mover.Sprinting && !forceWalk && // Site-14 - Forcewalk
                 TryGetSound(weightless, uid, mover, mobMover, xform, out var sound, tileDef: tileDef))
             {
                 var soundModifier = mover.Sprinting ? InputMoverComponent.SprintingSoundModifier : InputMoverComponent.WalkingSoundModifier;
@@ -381,6 +394,9 @@ public abstract partial class SharedMoverController : VirtualController
                 {
                     _audio.PlayPredicted(sound, uid, uid, audioParams);
                 }
+                // Site-14 - Viewcone
+                var viewconeEv = new SpawnViewconeEffectEvent(uid, wishDir.ToWorldAngle());
+                RaiseLocalEvent(uid, ref viewconeEv, true);
             }
         }
     }
@@ -639,9 +655,9 @@ public abstract partial class SharedMoverController : VirtualController
         return sound != null;
     }
 
-    private Vector2 AssertValidWish(InputMoverComponent mover, float walkSpeed, float sprintSpeed)
+    private Vector2 AssertValidWish(InputMoverComponent mover, float walkSpeed, float sprintSpeed, bool forceWalk = false) // Site-14 - Forcewalk
     {
-        var (walkDir, sprintDir) = GetVelocityInput(mover);
+        var (walkDir, sprintDir) = GetVelocityInput(mover, forceWalk); // Site-14 - Forcewalk
 
         var total = walkDir * walkSpeed + sprintDir * sprintSpeed;
 

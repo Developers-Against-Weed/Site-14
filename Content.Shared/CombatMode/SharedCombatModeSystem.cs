@@ -87,7 +87,7 @@ public abstract class SharedCombatModeSystem : EntitySystem
         SetMouseRotatorComponents(entity, value);
     }
 
-    private void SetMouseRotatorComponents(EntityUid uid, bool value)
+    public void SetMouseRotatorComponents(EntityUid uid, bool value) // Site-14 - Hold to Face
     {
         if (value)
         {
