@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+      <TargetFramework>$(TargetFramework)</TargetFramework>
+      <IsPackable>false</IsPackable>
+      <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+      <OutputPath>..\..\..\bin\Content.Client\</OutputPath>
+      <OutputType Condition="'$(FullRelease)' != 'True'">Exe</OutputType>
+      <WarningsAsErrors>nullable</WarningsAsErrors>
+      <Nullable>enable</Nullable>
+      <Configurations>Debug;Release;Tools;DebugOpt</Configurations>
+      <Platforms>AnyCPU</Platforms>
+    </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nett" />
+  </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Content.Client\Content.Client.csproj" />
+      <ProjectReference Include="..\Content.Site14.Shared\Content.Site14.Shared.csproj" />
+      <ProjectReference Include="..\Content.Site14.Common\Content.Site14.Common.csproj" />
+    </ItemGroup>
+
+    <Import Project="..\..\..\RobustToolbox\MSBuild\Robust.Properties.targets" />
+    <Import Project="..\..\..\RobustToolbox\MSBuild\XamlIL.targets" />
+</Project>

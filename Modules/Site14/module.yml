@@ -1,0 +1,16 @@
+﻿name: Site14
+id: site14
+version: 1.0.0
+
+projects:
+  - path: Content.Site14.Common
+    role: Common
+
+  - path: Content.Site14.Shared
+    role: Shared
+
+  - path: Content.Site14.Server
+    role: Server
+
+  - path: Content.Site14.Client
+    role: Client

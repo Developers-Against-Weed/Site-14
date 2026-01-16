@@ -39,6 +39,21 @@
       <BuildType Solution="Tools|*" Project="Release" />
     </Project>
   </Folder>
+  <Folder Name="/Modules/Site14/">
+    <Project Path="Modules/Site14/Content.Site14.Client/Content.Site14.Client.csproj" />
+    <Project Path="Modules/Site14/Content.Site14.Common/Content.Site14.Common.csproj">
+      <BuildType Solution="DebugOpt|*" Project="Debug" />
+      <BuildType Solution="Tools|*" Project="Debug" />
+    </Project>
+    <Project Path="Modules/Site14/Content.Site14.Server/Content.Site14.Server.csproj">
+      <BuildType Solution="DebugOpt|*" Project="Debug" />
+      <BuildType Solution="Tools|*" Project="Debug" />
+    </Project>
+    <Project Path="Modules/Site14/Content.Site14.Shared/Content.Site14.Shared.csproj">
+      <BuildType Solution="DebugOpt|*" Project="Debug" />
+      <BuildType Solution="Tools|*" Project="Debug" />
+    </Project>
+  </Folder>
   <Folder Name="/MSBuild/">
     <File Path="MSBuild/Content.props" />
   </Folder>
