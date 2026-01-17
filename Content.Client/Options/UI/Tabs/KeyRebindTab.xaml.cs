@@ -157,6 +157,13 @@ namespace Content.Client.Options.UI.Tabs
             AddHeader("ui-options-header-general");
             AddCheckBox("ui-options-hotkey-keymap", _cfg.GetCVar(CVars.DisplayUSQWERTYHotkeys), HandleToggleUSQWERTYCheckbox);
 
+
+            // Site-14 - START
+            AddHeader("ui-options-header-site14");
+            AddButton(Site14KeyFunctions.HoldToFace);
+            AddButton(Site14KeyFunctions.Blink);
+            // Site-14 - END
+
             AddHeader("ui-options-header-movement");
             AddButton(EngineKeyFunctions.MoveUp);
             AddButton(EngineKeyFunctions.MoveLeft);

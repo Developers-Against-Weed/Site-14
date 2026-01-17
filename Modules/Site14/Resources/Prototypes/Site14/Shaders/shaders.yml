@@ -1,0 +1,16 @@
+# Viewcones
+- type: shader
+  id: Viewcone
+  kind: source
+  path: "/Textures/Site14/Shaders/viewcone.swsl"
+
+# Blinking
+- type: shader
+  id: BlinkBlur
+  kind: source
+  path: "/Textures/Site14/Shaders/blink_blur.swsl"
+
+- type: shader
+  id: BlinkEyelid
+  kind: source
+  path: "/Textures/Site14/Shaders/blink_eyelid.swsl"
