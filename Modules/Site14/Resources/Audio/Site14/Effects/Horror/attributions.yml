@@ -1,3 +1,10 @@
+# SPDX-FileCopyrightText: 2026 Site-14 Contributors
+#
+# SPDX-License-Identifier: MPL-2.0
+#
+# Additional Use Restrictions apply:
+# See /LICENSES/SITE14-ADDENDUM.md
+
 - files: ["Horror0.ogg", "Horror1.ogg", "Horror2.ogg", "Horror3.ogg", "Horror4.ogg", "Horror5.ogg", "Horror6.ogg", "Horror7.ogg", "Horror8.ogg", "Horror9.ogg", "Horror10.ogg", "Horror11.ogg", "Horror12.ogg", "Horror13.ogg", "Horror14.ogg", "Horror15.ogg", "Horror16.ogg"]
   license: "CC-BY-SA-3.0"
   copyright: "Taken from source"
