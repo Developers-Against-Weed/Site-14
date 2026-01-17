@@ -1,0 +1,125 @@
+- type: entity
+  parent:
+  - BaseMob
+  - MobCombat
+  - Site14BaseMob
+  id: SCP173Player
+  name: SCP-173
+  description: Something seems off...
+  components:
+  - type: Eye
+    drawFov: false
+  - type: PointLight
+    radius: 1.5
+    energy: 2.0
+    color: "#b51d02"
+    castShadows: false
+  - type: Perishable
+  - type: Stamina
+  - type: Damageable
+    damageContainer: Biological
+  - type: NoSlip
+  - type: StatusEffects
+    allowed:
+    - SlowedDown
+  - type: MovementSpeedModifier
+    baseWalkSpeed : 1.5
+    baseSprintSpeed : 2.5
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.3
+        density: 230
+        mask:
+        - MobMask
+        layer:
+        - MobMask
+  - type: MeleeWeapon
+    hidden: true
+    soundHit:
+      collection: MetalThud
+    damage:
+      groups:
+        Brute: 500
+  - type: Sprite
+    sprite: Site14/Mobs/Demons/slendermime.rsi
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: alive
+  - type: DamageStateVisuals
+    states:
+      Alive:
+        Base: alive
+      Critical:
+        Base: dead
+      Dead:
+        Base: dead
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      450: Critical
+      500: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      250: 0.7
+      400: 0.5
+  - type: MobState
+  - type: MobStateActions
+    actions:
+      Critical:
+      - ActionCritSuccumb
+  - type: StopOnLOS
+  - type: AuraBlink
+  - type: ViewportEntrySound
+    sound:
+      path: /Audio/Site14/Effects/Horror/Horror2.ogg
+
+- type: entity
+  parent: SCP173Player
+  id: SCP173AI
+  name: SCP-173
+  suffix: AI
+  description: Something seems off...
+  components:
+  - type: HTN
+    rootTask:
+      task: SimpleHostileCompound
+    blackboard:
+      NavClimb: !type:Bool
+        true
+      NavSmash: !type:Bool
+        true
+      VisionRadius: !type:Single
+        15
+      AggroVisionRadius: !type:Single
+        15
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - FootstepSound
+  - type: MovementAlwaysTouching
+  - type: ReplacementAccent
+    accent: genericAggressive
+
+- type: entity
+  parent: SCP173AI
+  id: SCP173Ghostrole
+  name: SCP-173
+  suffix: AI, Ghost role
+  description: Something seems off...
+  components:
+  - type: GhostRole
+    allowMovement: true
+    allowSpeech: false
+    makeSentient: true
+    name: ghost-role-information-scp173-name
+    description: ghost-role-information-scp173-description
+    rules: ghost-role-information-scp173-rules
+    raffle:
+      settings: default
+  - type: GhostTakeoverAvailable

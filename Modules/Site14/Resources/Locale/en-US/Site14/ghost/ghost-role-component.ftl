@@ -1,0 +1,3 @@
+ghost-role-information-scp173-name = SCP-173
+ghost-role-information-scp173-description = Something seems off...
+ghost-role-information-scp173-rules = You are a [color=red][bold]Antagonist[/bold][/color].
