@@ -162,6 +162,7 @@ namespace Content.Client.Options.UI.Tabs
             // Site-14 - START
             AddHeader("ui-options-header-site14");
             AddButton(Site14KeyFunctions.HoldToFace);
+            AddButton(Site14KeyFunctions.Blink);
             // Site-14 - END
 
             AddHeader("ui-options-header-movement");

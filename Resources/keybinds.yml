@@ -4,9 +4,14 @@
 
 version: 1 # Not used right now, whatever.
 binds:
-- function: HoldToFace # Site-14
+# Site-14 - START
+- function: HoldToFace
   type: State
   key: Shift
+- function: Blink
+  type: State
+  key: Space
+# Site-14 - END
 - function: UIClick
   type: State
   key: MouseLeft

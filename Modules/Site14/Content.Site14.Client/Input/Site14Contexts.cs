@@ -16,5 +16,6 @@ public static class Site14Contexts
     {
         var common = contexts.GetContext("common");
         common.AddFunction(Site14KeyFunctions.HoldToFace);
+        common.AddFunction(Site14KeyFunctions.Blink);
     }
 }
