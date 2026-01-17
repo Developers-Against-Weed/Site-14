@@ -5,3 +5,4 @@
   - type: Viewcone
   - type: ViewconeOccludable
   - type: HoldToFace
+  - type: Blinking

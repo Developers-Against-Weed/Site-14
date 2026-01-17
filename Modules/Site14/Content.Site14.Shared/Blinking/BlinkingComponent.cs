@@ -16,10 +16,10 @@ public sealed partial class BlinkingComponent : Component
     public float BlurStartTime = 3f;
 
     [DataField, AutoNetworkedField]
-    public float MinClosedDuration = 0.1f;
+    public float MinClosedDuration = 0.3f;
 
     [DataField, AutoNetworkedField]
-    public float MaxClosedDuration = 0.4f;
+    public float MaxClosedDuration = 1.4f;
 
     [DataField, AutoNetworkedField]
     public float CloseAnimationTime = 0.08f;
@@ -40,7 +40,7 @@ public sealed partial class BlinkingComponent : Component
     public float CurrentClosedDuration;
 
     [DataField, AutoNetworkedField]
-    public bool AutoBlink = true;
+    public bool AutoBlink = false;
 
     [DataField, AutoNetworkedField]
     public SoundSpecifier? BlinkSound;
