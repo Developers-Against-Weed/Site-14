@@ -1,4 +1,4 @@
-Name: Site-14
+Name: Gooblog
 Order: -1
 Entries:
 - author: Durk
@@ -7,3 +7,13 @@ Entries:
       message: Removed herobrine!
   id: 1
   time: '2026-01-16T12:54:44.0000000+00:00'
+- author: Durk
+  changes:
+    - type: Add
+      message: Added blinking
+    - type: Add
+      message: Added viewcones!
+    - type: Tweak
+      message: You are now forced to walk while moving backwards.
+  id: 2
+  time: '2026-01-17T04:29:14.0000000+00:00'
