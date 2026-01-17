@@ -13,10 +13,14 @@
     <ServerGarbageCollection>true</ServerGarbageCollection>
   </PropertyGroup>
 
+  <Import Project="..\..\..\RobustToolbox\Imports\Server.props" />
+  <Import Project="..\..\..\RobustToolbox\Imports\Shared.props" />
+
   <ItemGroup>
     <ProjectReference Include="..\..\..\Content.Server\Content.Server.csproj" />
-    <ProjectReference Include="..\Content.Site14.Common\Content.Site14.Common.csproj" />
     <ProjectReference Include="..\Content.Site14.Shared\Content.Site14.Shared.csproj" />
   </ItemGroup>
 
+  <Import Project="..\..\..\RobustToolbox\MSBuild\Robust.Properties.targets" />
+  <Import Project="..\..\..\RobustToolbox\MSBuild\Robust.CompNetworkGenerator.targets" />
 </Project>

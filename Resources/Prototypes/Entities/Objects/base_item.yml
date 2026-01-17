@@ -48,6 +48,7 @@
     noRot: false
   - type: Pullable
   - type: DamageExaminable
+  - type: ViewconeOccludable # Site-14 - Viewcones
 
 - type: entity
   name: "storage item"

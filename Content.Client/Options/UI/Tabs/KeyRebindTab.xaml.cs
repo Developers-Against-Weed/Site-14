@@ -17,6 +17,7 @@ using Robust.Shared.Input;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.BoxContainer;
+using Content.Site14.Common.Input; // Site-14
 
 namespace Content.Client.Options.UI.Tabs
 {

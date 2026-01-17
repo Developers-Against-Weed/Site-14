@@ -10,6 +10,7 @@
   - MobPolymorphable
   - MobCombat
   - StripableInventoryBase
+  - Site14BaseMob # Site-14
   id: BaseMobSpecies
   abstract: true
   components:

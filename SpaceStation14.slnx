@@ -41,6 +41,8 @@
   </Folder>
   <Folder Name="/Modules/Site14/">
     <Project Path="Modules/Site14/Content.Site14.Client/Content.Site14.Client.csproj" />
+      <BuildType Solution="DebugOpt|*" Project="Debug" />
+      <BuildType Solution="Tools|*" Project="Release" />
     <Project Path="Modules/Site14/Content.Site14.Common/Content.Site14.Common.csproj">
       <BuildType Solution="DebugOpt|*" Project="Debug" />
       <BuildType Solution="Tools|*" Project="Debug" />
