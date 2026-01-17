@@ -31,12 +31,12 @@ DIRECTORY_RULES = [
         "license": "mpl"
     },
     {
-        "pattern": "_Goobstation",
+        "pattern": "_Goobstation/",
         "author": "Goob Station Contributors",
         "license": "mpl"
     },
     {
-        "pattern": "Content.Site14.*/",
+        "pattern": "Site14/",
         "author": "Site-14 Contributors",
         "license": "mpl",
         "additional_text": "Additional Use Restrictions apply:\nSee /LICENSES/SITE14-ADDENDUM.md"
