@@ -840,7 +840,7 @@ namespace Content.Client.Lobby.UI
             var departments = new List<DepartmentPrototype>();
             foreach (var department in _prototypeManager.EnumeratePrototypes<DepartmentPrototype>())
             {
-                if (department.EditorHidden)
+                if (department.EditorHidden || !department.IsSCP) // Site-14 Edit
                     continue;
 
                 departments.Add(department);
@@ -902,6 +902,7 @@ namespace Content.Client.Lobby.UI
 
                 var jobs = department.Roles.Select(jobId => _prototypeManager.Index(jobId))
                     .Where(job => job.SetPreference)
+                    .Where(job => job.IsSCP) // Site-14 Edit
                     .ToArray();
 
                 Array.Sort(jobs, JobUIComparer.Instance);

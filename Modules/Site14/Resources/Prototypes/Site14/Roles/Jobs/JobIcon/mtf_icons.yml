@@ -1,0 +1,13 @@
+﻿- type: jobIcon
+  parent: SCPJobIcon
+  id: SCPJobIconMobileTaskForce
+  icon:
+    sprite: /Textures/Site14/Interface/job_icons.rsi
+    state: mtf
+
+- type: jobIcon
+  parent: SCPJobIcon
+  id: SCPJobIconMobileTaskForceCO
+  icon:
+    sprite: /Textures/Site14/Interface/job_icons.rsi
+    state: dos

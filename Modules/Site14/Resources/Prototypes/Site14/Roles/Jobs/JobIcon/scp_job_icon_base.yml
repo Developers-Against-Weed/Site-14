@@ -1,0 +1,9 @@
+﻿- type: jobIcon
+  id: SCPJobIcon
+  abstract: true
+  priority: 1
+  locationPreference: Right
+  isShaded: true
+  icon:
+    sprite: /Textures/Site14/Interface/job_icons.rsi
+

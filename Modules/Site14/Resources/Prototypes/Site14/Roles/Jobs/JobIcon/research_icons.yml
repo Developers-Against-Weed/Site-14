@@ -1,0 +1,13 @@
+﻿- type: jobIcon
+  parent: SCPJobIcon
+  id: SCPJobIconResearcher
+  icon:
+    sprite: /Textures/Site14/Interface/job_icons.rsi
+    state: res
+
+- type: jobIcon
+  parent: SCPJobIcon
+  id: SCPJobIconResearchDirector
+  icon:
+    sprite: /Textures/Site14/Interface/job_icons.rsi
+    state: dor

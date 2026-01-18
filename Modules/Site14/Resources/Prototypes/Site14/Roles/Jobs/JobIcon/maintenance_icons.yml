@@ -1,0 +1,21 @@
+﻿- type: jobIcon
+  parent: SCPJobIcon
+  id: SCPJobIconContainmentEngineer
+  icon:
+    sprite: /Textures/Site14/Interface/job_icons.rsi
+    state: maint
+
+- type: jobIcon
+  parent: SCPJobIcon
+  id: SCPJobIconChiefContainmentEngineer
+  icon:
+    sprite: /Textures/Site14/Interface/job_icons.rsi
+    state: ce
+
+
+- type: jobIcon
+  parent: SCPJobIcon
+  id: SCPJobIconCustodian
+  icon:
+    sprite: /Textures/Site14/Interface/job_icons.rsi
+    state: custodian

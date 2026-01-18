@@ -1,0 +1,6 @@
+﻿- type: jobIcon
+  parent: SCPJobIcon
+  id: SCPJobIconClassD
+  icon:
+    sprite: /Textures/Site14/Interface/job_icons.rsi
+    state: classd

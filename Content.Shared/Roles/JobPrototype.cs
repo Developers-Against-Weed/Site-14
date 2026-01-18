@@ -31,7 +31,7 @@ namespace Content.Shared.Roles
         public LocId Supervisors = "job-supervisors-nobody";
 
         /// <summary>
-        ///     The name of this job as displayed to players.
+        ///     The name of this job as Modsplayed to players.
         /// </summary>
         [DataField]
         public string Name { get; private set; } = string.Empty;
@@ -157,6 +157,12 @@ namespace Content.Shared.Roles
         /// </summary>
         [DataField]
         public List<ProtoId<GuideEntryPrototype>>? Guides;
+
+        /// <summary>
+        /// Site-14: Is this job related to the fork?
+        /// </summary>
+        [DataField]
+        public bool IsSCP;
     }
 
     /// <summary>

@@ -1,0 +1,10 @@
+﻿- type: entity
+  parent: ClothingShoesMilitaryBase
+  id: SCPClothingShoesBootsDutySec
+  name: duty boots
+  description: Security combat boots for combat scenarios or combat situations. All combat, all the time.
+  components:
+  - type: Sprite
+    sprite: Site14/Clothing/Shoes/Boots/dutyboots.rsi
+  - type: Clothing
+    sprite: Site14/Clothing/Shoes/Boots/dutyboots.rsi

@@ -1,0 +1,88 @@
+- type: department
+  id: SCPSecurityDept
+  name: scp-department-security-name
+  description: scp-department-security-description
+  color: "#efefef"
+  roles:
+  - SCPDirectorOfSecurity
+  - SCPSecurityGuard
+  primary: false
+  isSCP: true
+
+- type: department
+  id: SCPAdminDept
+  name: scp-department-admin-name
+  description: scp-department-admin-description
+  color: "#334E6D"
+  roles:
+  - SCPDirectorOfSecurity
+  - SCPSiteDirector
+  - SCPResearchDirector
+  primary: false
+  isSCP: true
+
+- type: department
+  id: SCPResearchDept
+  name: scp-department-research-name
+  description: scp-department-research-description
+  color: "#c96dbf"
+  roles:
+  - SCPResearcher
+  - SCPResearchDirector
+  primary: false
+  isSCP: true
+
+- type: department
+  id: SCPCivilian
+  name: scp-department-civilian-name
+  description: scp-department-civilian-description
+  color: "#9fed58"
+  roles:
+  - SCPClassD
+  primary: false
+  isSCP: true
+
+- type: department
+  id: SCPMedicalDept
+  name: scp-department-medical-name
+  description: scp-department-medical-description
+  color: "#5b97bc"
+  roles:
+  - SCPDoctor
+  - SCPMedicalDirector
+  primary: false
+  isSCP: true
+
+- type: department
+  id: SCPLogisticsDept
+  name: scp-department-logistics-name
+  description: scp-department-logistics-description
+  color: "#b18644"
+  roles:
+  - SCPLogisticsDirector
+  - SCPLogistician
+  primary: false
+  isSCP: true
+
+- type: department
+  id: SCPMaintenanceDept
+  name: scp-department-maintenance-name
+  description: scp-department-maintenance-description
+  color: "#f39f27"
+  roles:
+  - SCPContainmentEngineer
+  - SCPChiefContainmentEngineer
+  - SCPCustodian
+  primary: false
+  isSCP: true
+
+- type: department
+  id: SCPMobileTaskForceDelta4
+  name: scp-department-mtf-name
+  description: scp-department-mtf-description
+  color: "#1761EB"
+  roles:
+  - SCPMobileTaskForceDelta4Agent
+  - SCPMobileTaskForceDelta4CO
+  primary: false
+  isSCP: true

@@ -1,0 +1,13 @@
+﻿- type: jobIcon
+  parent: SCPJobIcon
+  id: SCPJobIconSecurityGuard
+  icon:
+    sprite: /Textures/Site14/Interface/job_icons.rsi
+    state: security
+
+- type: jobIcon
+  parent: SCPJobIcon
+  id: SCPJobIconDirectorOfSecurity
+  icon:
+    sprite: /Textures/Site14/Interface/job_icons.rsi
+    state: dos
