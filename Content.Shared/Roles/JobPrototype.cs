@@ -31,7 +31,7 @@ namespace Content.Shared.Roles
         public LocId Supervisors = "job-supervisors-nobody";
 
         /// <summary>
-        ///     The name of this job as Modsplayed to players.
+        ///     The name of this job as displayed to players.
         /// </summary>
         [DataField]
         public string Name { get; private set; } = string.Empty;
