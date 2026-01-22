@@ -1,0 +1,40 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Taken from Foundation-19 at https://github.com/Foundation-19/Foundation-19/blob/14ff2434f42da501a3ed3721a1b89333a3dc6b99/icons/SCP/scp-096.dmi",
+    "size": {
+        "x": 48,
+        "y": 64
+    },
+    "states": [
+        {
+            "name": "old",
+            "directions": 4
+        },
+        {
+            "name": "scp-dead"
+        },
+        {
+            "name": "scp-chasing",
+            "directions": 4
+        },
+        {
+            "name": "scp-screaming",
+            "delays": [
+                [
+                    6,
+                    2,
+                    10,
+                    2,
+                    2,
+                    2,
+                    2,
+                    3
+                ]
+            ]
+        },
+        {
+            "name": "scp"
+        }
+    ]
+}
