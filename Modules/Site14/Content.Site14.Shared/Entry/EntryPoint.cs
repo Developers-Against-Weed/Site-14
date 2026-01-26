@@ -4,6 +4,7 @@
 
 using Content.Site14.Shared.IoC;
 using Robust.Shared.ContentPack;
+using Robust.Shared.Serialization;
 
 namespace Content.Site14.Shared.Entry;
 

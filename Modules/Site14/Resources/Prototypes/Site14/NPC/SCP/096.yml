@@ -1,0 +1,63 @@
+- type: htnCompound
+  id: SCP096Compound
+  branches:
+  - preconditions:
+    - !type:BuckledPrecondition
+      isBuckled: true
+    tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:UnbuckleOperator
+        shutdownState: TaskFinished
+
+  - preconditions:
+    - !type:PulledPrecondition
+      isPulled: true
+    tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:UnPullOperator
+        shutdownState: TaskFinished
+
+  - preconditions:
+    - !type:InContainerPrecondition
+      isInContainer: true
+    tasks:
+    - !type:HTNCompoundTask
+      task: EscapeCompound
+
+  - tasks:
+    - !type:HTNCompoundTask
+      task: SCP096RageCompound
+
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:WaitOperator
+        key: IdleTime
+
+- type: htnCompound
+  id: SCP096RageCompound
+  branches:
+  - tasks:
+    - !type:HTNPrimitiveTask
+      operator: !type:ShyGuyTargetOperator
+        sightRange: 50
+        targetKey: Target
+        coordinatesKey: TargetCoordinates
+        enrageSound:
+          path: /Audio/SCP/096-rage.ogg
+    - !type:HTNPrimitiveTask
+      operator: !type:WaitOperator
+        key: EnrageTime
+    - !type:HTNPrimitiveTask
+      operator: !type:MoveToOperator
+        shutdownState: PlanFinished
+        pathfindInPlanning: false
+        removeKeyOnFinish: false
+        targetKey: TargetCoordinates
+        rangeKey: MeleeRange
+    - !type:HTNPrimitiveTask
+      operator: !type:MeleeOperator
+        targetKey: Target
+      preconditions:
+      - !type:TargetInRangePrecondition
+        targetKey: Target
+        rangeKey: MeleeRange

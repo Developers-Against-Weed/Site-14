@@ -1,0 +1,56 @@
+- type: entity
+  id: MobSCP096
+  parent: BaseMob
+  name: SCP-096
+  description: A pale, skinny humanoid creature. DO NOT look at its face.
+  components:
+  - type: Sprite
+    sprite: Site14/Mobs/SCP/scp-096.rsi
+    drawdepth: Mobs
+    layers:
+    - state: scp
+      map: [ "enum.ShyGuyVisualLayers.Base" ]
+  - type: MobState
+  - type: ShyGuy
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      1000: Dead
+  - type: ViewconeOccludable
+  - type: Stamina
+    critThreshold: 1000
+  - type: MovementSpeedModifier
+    baseWalkSpeed: 2.5
+    baseSprintSpeed: 12
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.35
+        density: 100
+        mask:
+        - MobMask
+        layer:
+        - MobLayer
+  - type: Appearance
+  - type: CombatMode
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 200
+    animation: WeaponArcPunch
+  - type: NpcFactionMember
+    factions:
+    - SimpleHostile
+  - type: ActiveNPC
+  - type: HTN
+    rootTask:
+      task: SCP096Compound
+  - type: GenericVisualizer
+    visuals:
+      enum.ShyGuyVisuals.State:
+        enum.ShyGuyVisualLayers.Base:
+          Rest: { state: scp }
+          Enraged: { state: scp-screaming }
+          Charging: { state: scp-chasing }
