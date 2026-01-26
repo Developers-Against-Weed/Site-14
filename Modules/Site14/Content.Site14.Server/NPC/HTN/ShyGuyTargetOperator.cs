@@ -52,9 +52,6 @@ public sealed partial class ShyGuyTargetOperator : HTNOperator
     [DataField]
     public SoundSpecifier? EnrageSound;
 
-    [DataField]
-    public float AudioDelayAdjustmentInSeconds = -1f;
-
     public override void Initialize(IEntitySystemManager sysManager)
     {
         base.Initialize(sysManager);
@@ -88,7 +85,7 @@ public sealed partial class ShyGuyTargetOperator : HTNOperator
         var effects = new Dictionary<string, object>
         {
             { TargetKey, target.Value },
-            { EnrageTimeKey, (float) _audio.GetAudioLength(resolvedSound).TotalSeconds + AudioDelayAdjustmentInSeconds},
+            { EnrageTimeKey, (float) _audio.GetAudioLength(resolvedSound).TotalSeconds},
         };
 
         if (_entManager.TryGetComponent<TransformComponent>(target.Value, out var xform))

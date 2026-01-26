@@ -7,7 +7,6 @@
 
 using Content.Server.NPC.HTN;
 using Content.Site14.Shared.ShyGuy;
-using Robust.Shared.Map;
 
 namespace Content.Site14.Server.ShyGuy;
 
