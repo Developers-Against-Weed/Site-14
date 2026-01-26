@@ -104,16 +104,11 @@ public sealed partial class ShyGuyTargetOperator : HTNOperator
 
         foreach (var hostile in hostiles)
         {
-            if (!_entManager.TryGetComponent<MobStateComponent>(hostile, out var state))
-                continue;
-            if (state.CurrentState != MobState.Alive)
-                continue;
-            if (RequireMind && !_mind.TryGetMind(hostile, out _, out _))
-                continue;
-            if (CheckBlinking && _entManager.TryGetComponent<BlinkingComponent>(hostile, out var blinking)
-                && blinking.IsBlinking)
-                continue;
-            if (!_examine.InRangeUnOccluded(hostile, owner, SightRange))
+            if (!_entManager.TryGetComponent<MobStateComponent>(hostile, out var state)
+                || state.CurrentState != MobState.Alive
+                || RequireMind && !_mind.TryGetMind(hostile, out _, out _)
+                || CheckBlinking && _entManager.TryGetComponent<BlinkingComponent>(hostile, out var blinking) && blinking.IsBlinking
+                || !_examine.InRangeUnOccluded(hostile, owner, SightRange))
                 continue;
 
             var targetPos = _transform.GetMapCoordinates(hostile);
