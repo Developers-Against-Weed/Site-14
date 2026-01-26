@@ -11,9 +11,6 @@ using Robust.Shared.Map;
 
 namespace Content.Site14.Server.ShyGuy;
 
-/// <summary>
-/// This handles...
-/// </summary>
 public sealed class ShyGuySystem : EntitySystem
 {
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
