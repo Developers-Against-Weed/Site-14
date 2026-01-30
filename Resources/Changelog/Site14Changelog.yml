@@ -1,4 +1,4 @@
-Name: Gooblog
+Name: Site-14
 Order: -1
 Entries:
 - author: Durk
@@ -17,3 +17,9 @@ Entries:
       message: You are now forced to walk while moving backwards.
   id: 2
   time: '2026-01-17T04:29:14.0000000+00:00'
+- author: Durk
+  changes:
+    - type: Add
+      message: Added SCP-173
+  id: 3
+  time: '2026-01-30T05:34:32.0000000+00:00'
