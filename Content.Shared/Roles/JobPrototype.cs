@@ -162,7 +162,7 @@ namespace Content.Shared.Roles
         /// Site-14: Is this job related to the fork?
         /// </summary>
         [DataField]
-        public bool IsSCP;
+        public bool ShowInLoadoutScreen;
     }
 
     /// <summary>

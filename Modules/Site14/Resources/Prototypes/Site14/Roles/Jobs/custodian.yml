@@ -1,7 +1,7 @@
 ﻿- type: job
   id: SCPCustodian
   name: scp-job-name-custodian
-  isSCP: true
+  ShowInLoadoutScreen: true
   description: scp-job-description-custodian
   playTimeTracker: SCPJobCustodian
 #  requirements:

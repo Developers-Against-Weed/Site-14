@@ -1,6 +1,6 @@
 ﻿- type: job
   id: SCPSecurityGuard
-  isSCP: true
+  ShowInLoadoutScreen: true
   name: scp-job-name-security-guard
   description: scp-job-description-security-guard
   playTimeTracker: SCPJobSecurityGuard

@@ -1,6 +1,6 @@
 ﻿- type: job
   id: SCPDirectorOfSecurity
-  isSCP: true
+  ShowInLoadoutScreen: true
   name: scp-job-name-security-director
   description: scp-job-description-security-director
   playTimeTracker: SCPJobDirectorOfSecurity

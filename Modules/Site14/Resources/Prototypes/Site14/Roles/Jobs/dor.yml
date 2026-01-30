@@ -1,6 +1,6 @@
 ﻿- type: job
   id: SCPResearchDirector
-  isSCP: true
+  ShowInLoadoutScreen: true
   name: scp-job-name-research-director
   description: scp-job-description-research-director
   playTimeTracker: SCPJobResearchDirector

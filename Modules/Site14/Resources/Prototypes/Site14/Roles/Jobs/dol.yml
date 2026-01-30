@@ -1,6 +1,6 @@
 ﻿- type: job
   id: SCPLogisticsDirector
-  isSCP: true
+  ShowInLoadoutScreen: true
   name: scp-job-name-logistics-director
   description: scp-job-description-logistics-director
   playTimeTracker: SCPJobLogisticsDirector

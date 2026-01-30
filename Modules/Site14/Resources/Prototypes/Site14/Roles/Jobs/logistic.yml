@@ -1,6 +1,6 @@
 ﻿- type: job
   id: SCPLogistician
-  isSCP: true
+  ShowInLoadoutScreen: true
   name: scp-job-name-logistician
   description: scp-job-description-logistician
   playTimeTracker: SCPJobLogistician

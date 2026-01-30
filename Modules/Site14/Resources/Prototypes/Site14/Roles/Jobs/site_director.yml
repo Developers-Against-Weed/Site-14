@@ -2,7 +2,7 @@
   id: SCPSiteDirector
   name: scp-job-name-site-director
   description: scp-job-description-site-director
-  isSCP: true
+  ShowInLoadoutScreen: true
   playTimeTracker: SCPJobSiteDirector
 #  requirements:
 #  - !type:TotalJobsTimeRequirement

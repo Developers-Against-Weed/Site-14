@@ -1,6 +1,6 @@
 ﻿- type: job
   id: SCPClassD
-  isSCP: true
+  ShowInLoadoutScreen: true
   name: scp-job-name-class-d
   description: scp-job-description-class-d
   playTimeTracker: SCPJobClassD

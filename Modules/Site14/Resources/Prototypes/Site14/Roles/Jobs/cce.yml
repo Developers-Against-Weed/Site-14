@@ -1,6 +1,6 @@
 ﻿- type: job
   id: SCPChiefContainmentEngineer
-  isSCP: true
+  ShowInLoadoutScreen: true
   name: scp-job-name-chief-containment-engineer
   description: scp-job-description-chief-containment-engineer
   playTimeTracker: SCPJobChiefContainmentEngineer

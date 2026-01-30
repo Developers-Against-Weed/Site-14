@@ -7,7 +7,7 @@
   - SCPDirectorOfSecurity
   - SCPSecurityGuard
   primary: false
-  isSCP: true
+  ShowInLoadoutScreen: true
 
 - type: department
   id: SCPAdminDept
@@ -19,7 +19,7 @@
   - SCPSiteDirector
   - SCPResearchDirector
   primary: false
-  isSCP: true
+  ShowInLoadoutScreen: true
 
 - type: department
   id: SCPResearchDept
@@ -30,7 +30,7 @@
   - SCPResearcher
   - SCPResearchDirector
   primary: false
-  isSCP: true
+  ShowInLoadoutScreen: true
 
 - type: department
   id: SCPCivilian
@@ -40,7 +40,7 @@
   roles:
   - SCPClassD
   primary: false
-  isSCP: true
+  ShowInLoadoutScreen: true
 
 - type: department
   id: SCPMedicalDept
@@ -51,7 +51,7 @@
   - SCPDoctor
   - SCPMedicalDirector
   primary: false
-  isSCP: true
+  ShowInLoadoutScreen: true
 
 - type: department
   id: SCPLogisticsDept
@@ -62,7 +62,7 @@
   - SCPLogisticsDirector
   - SCPLogistician
   primary: false
-  isSCP: true
+  ShowInLoadoutScreen: true
 
 - type: department
   id: SCPMaintenanceDept
@@ -74,7 +74,7 @@
   - SCPChiefContainmentEngineer
   - SCPCustodian
   primary: false
-  isSCP: true
+  ShowInLoadoutScreen: true
 
 - type: department
   id: SCPMobileTaskForceDelta4
@@ -85,4 +85,4 @@
   - SCPMobileTaskForceDelta4Agent
   - SCPMobileTaskForceDelta4CO
   primary: false
-  isSCP: true
+  ShowInLoadoutScreen: true

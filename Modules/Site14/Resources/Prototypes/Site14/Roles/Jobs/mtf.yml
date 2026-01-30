@@ -1,6 +1,6 @@
 ﻿- type: job
   id: SCPMobileTaskForceDelta4Agent
-  isSCP: true
+  ShowInLoadoutScreen: true
   name: scp-job-name-mtf-agent
   description: scp-job-description-mtf
   playTimeTracker: SCPJobMobileTaskForceDelta4Agent

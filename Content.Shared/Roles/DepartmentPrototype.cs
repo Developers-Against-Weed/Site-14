@@ -53,7 +53,7 @@ public sealed partial class DepartmentPrototype : IPrototype
     public bool EditorHidden;
 
     [DataField]
-    public bool IsSCP;
+    public bool ShowInLoadoutScreen;
 }
 
 /// <summary>

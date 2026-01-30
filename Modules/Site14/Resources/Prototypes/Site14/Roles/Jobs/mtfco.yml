@@ -1,6 +1,6 @@
 ﻿- type: job
   id: SCPMobileTaskForceDelta4CO
-  isSCP: true
+  ShowInLoadoutScreen: true
   name: scp-job-name-mtf-co
   description: scp-job-description-mtf-co
   playTimeTracker: SCPJobMobileTaskForceDelta4CO

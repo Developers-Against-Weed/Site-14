@@ -1,6 +1,6 @@
 ﻿- type: job
   id: SCPMedicalDirector
-  isSCP: true
+  ShowInLoadoutScreen: true
   name: scp-job-name-medical-director
   description: scp-job-description-medical-director
   playTimeTracker: SCPJobMedicalDirector

@@ -21,7 +21,7 @@
   icon: "SCPJobIconResearcher"
   joinNotifyCrew: true
   supervisors: scp-job-supervisors-dor
-  isSCP: true
+  ShowInLoadoutScreen: true
   accessGroups:
   - Research
 
