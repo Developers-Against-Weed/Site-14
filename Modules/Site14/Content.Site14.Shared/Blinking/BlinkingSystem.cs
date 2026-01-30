@@ -96,6 +96,12 @@ public sealed class BlinkingSystem : EntitySystem
         var query = EntityQueryEnumerator<BlinkingComponent>();
         while (query.MoveNext(out var uid, out var comp))
         {
+            if (comp.PreviousAutoBlink != comp.AutoBlink)
+            {
+                comp.LastBlinkTime = _timing.CurTime;
+                comp.PreviousAutoBlink = comp.AutoBlink;
+            }
+
             if (comp.IsHoldingClosed)
             {
                 comp.LastBlinkTime = _timing.CurTime;

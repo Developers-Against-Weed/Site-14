@@ -6,6 +6,7 @@ using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Spawners;
 using Content.Site14.Common.Viewcone.Events;
+using System.Numerics;
 
 namespace Content.Site14.Shared.Viewcone;
 
@@ -51,5 +52,75 @@ public sealed class ViewconeEffectSystem : EntitySystem
     {
         if (!TerminatingOrDeleted(args.Uid))
             SpawnEffect(args.Uid, DefaultFootstepEffect, args.Direction);
+    }
+
+    /// <summary>
+    ///     Checks if a target entity is within the viewcone of a viewer entity.
+    /// </summary>
+    /// <param name="viewer">The entity with the viewcone.</param>
+    /// <param name="target">The entity to check visibility for.</param>
+    /// <returns>True if the target is within the viewer's viewcone, false otherwise.</returns>
+    public bool IsInViewcone(EntityUid viewer, EntityUid target)
+    {
+        if (!TryComp<ViewconeComponent>(viewer, out var viewcone))
+            return true;
+
+        var viewerXform = Transform(viewer);
+        var targetXform = Transform(target);
+
+        if (viewerXform.MapID != targetXform.MapID)
+            return false;
+
+        var viewerPos = _xform.GetWorldPosition(viewerXform);
+        var targetPos = _xform.GetWorldPosition(targetXform);
+        var delta = targetPos - viewerPos;
+        var distance = delta.Length();
+
+        if (distance <= viewcone.ConeIgnoreRadius)
+            return true;
+
+        var angleToTarget = new Angle(MathF.Atan2(delta.Y, delta.X));
+
+        var viewAngle = _net.IsClient
+            ? viewcone.DesiredViewAngle ?? viewcone.ViewAngle
+            : _xform.GetWorldRotation(viewerXform) - Angle.FromDegrees(90);
+
+        var angleDiff = Angle.ShortestDistance(viewAngle, angleToTarget);
+
+        var halfCone = Angle.FromDegrees(viewcone.ConeAngle / 2f);
+
+        return Math.Abs(angleDiff.Theta) <= halfCone.Theta;
+    }
+
+    /// <summary>
+    ///     Checks if a world position is within the viewcone of a viewer entity.
+    /// </summary>
+    /// <param name="viewer">The entity with the viewcone.</param>
+    /// <param name="targetPos">The world position to check.</param>
+    /// <returns>True if the position is within the viewer's viewcone, false otherwise.</returns>
+    public bool IsInViewcone(EntityUid viewer, Vector2 targetPos)
+    {
+        if (!TryComp<ViewconeComponent>(viewer, out var viewcone))
+            return true;
+
+        var viewerXform = Transform(viewer);
+        var viewerPos = _xform.GetWorldPosition(viewerXform);
+        var delta = targetPos - viewerPos;
+        var distance = delta.Length();
+
+        if (distance <= viewcone.ConeIgnoreRadius)
+            return true;
+
+        var angleToTarget = new Angle(MathF.Atan2(delta.Y, delta.X));
+
+        var viewAngle = _net.IsClient
+            ? viewcone.DesiredViewAngle ?? viewcone.ViewAngle
+            : _xform.GetWorldRotation(viewerXform) - Angle.FromDegrees(90);
+
+        var angleDiff = Angle.ShortestDistance(viewAngle, angleToTarget);
+
+        var halfCone = Angle.FromDegrees(viewcone.ConeAngle / 2f);
+
+        return Math.Abs(angleDiff.Theta) <= halfCone.Theta;
     }
 }

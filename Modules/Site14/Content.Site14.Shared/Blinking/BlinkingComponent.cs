@@ -51,4 +51,6 @@ public sealed partial class BlinkingComponent : Component
 
     [DataField, AutoNetworkedField]
     public SoundSpecifier? BlinkSound;
+
+    public bool PreviousAutoBlink = false;
 }
